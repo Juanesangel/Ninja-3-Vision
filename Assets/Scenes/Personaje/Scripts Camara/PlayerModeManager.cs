@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using Unity.Cinemachine;
 
 public enum CameraMode { POV, TopDown, SideScroll }
-
 public class PlayerModeManager : MonoBehaviour
 {
     [Header("Componente de Input")]
@@ -22,6 +21,8 @@ public class PlayerModeManager : MonoBehaviour
     [Header("Física")]
     [SerializeField] private Rigidbody rb;
 
+public CameraMode CurrentMode { get; private set; }
+
     private void Start()
     {
         SetMode(CameraMode.POV);
@@ -39,6 +40,7 @@ public class PlayerModeManager : MonoBehaviour
 
     public void SetMode(CameraMode newMode)
     {
+        CurrentMode = newMode;
         // 1. Resetear prioridades de cámara (Cinemachine hará la transición suave)
         povCamera.Priority = 0;
         topDownCamera.Priority = 0;
